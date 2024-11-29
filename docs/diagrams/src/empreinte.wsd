@@ -1,0 +1,36 @@
+@startuml empreinte
+' Accès par Empreinte
+actor "Employé" as emp
+participant "Lecteur Empreintes" as fp
+participant "Système SCAM" as sys
+participant "Base de données" as db
+participant "Contrôle Porte" as porte
+
+emp -> fp : pose doigt
+activate fp
+fp -> sys : scan empreinte
+activate sys
+
+sys -> sys : analyse biométrique
+sys -> db : vérifie empreinte
+activate db
+db --> sys : statut vérification
+deactivate db
+
+alt empreinte valide
+    sys -> porte : commande ouverture
+    activate porte
+    porte --> sys : confirmation
+    deactivate porte
+    sys -> db : enregistre accès
+    sys --> fp : accès autorisé
+    fp --> emp : signal vert + ouverture
+else empreinte invalide
+    sys --> fp : accès refusé
+    fp --> emp : signal rouge
+end
+
+deactivate sys
+deactivate fp
+
+@enduml

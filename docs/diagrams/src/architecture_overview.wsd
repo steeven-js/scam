@@ -1,0 +1,22 @@
+@startuml architecture_overview
+left to right direction
+actor Client as C
+rectangle "Magasin" {
+  usecase "Entrer dans le magasin" as UC1
+  usecase "Parcourir les rayons" as UC2
+  usecase "Demander des renseignements" as UC3
+  usecase "Essayer des articles" as UC4
+  usecase "Prendre des articles" as UC5
+  usecase "Passer à la caisse" as UC6
+  usecase "Régler les achats" as UC7
+  usecase "Bénéficier d'une réduction" as UC8
+}
+C --> UC1
+C --> UC2
+C --> UC3 : <<optionnel>>
+C --> UC4 : <<optionnel>>
+C --> UC5 : <<si stock suffisant>>
+C --> UC6
+UC6 <|-- UC7
+UC7 <|-- UC8 : <<optionnel>>
+@enduml

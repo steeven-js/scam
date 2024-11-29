@@ -1,0 +1,35 @@
+@startuml smartphone_access
+' Accès par Smartphone
+actor "Employé" as emp
+participant "App Mobile" as app
+participant "Système SCAM" as sys
+participant "Base de données" as db
+participant "Contrôle Porte" as porte
+
+emp -> app : lance demande d'accès
+activate app
+app -> sys : identifiants + géolocalisation
+activate sys
+
+sys -> db : vérifie credentials
+activate db
+db --> sys : statut autorisation
+deactivate db
+
+alt autorisation valide
+    sys -> porte : commande ouverture
+    activate porte
+    porte --> sys : confirmation
+    deactivate porte
+    sys -> db : enregistre accès
+    sys --> app : accès autorisé
+    app --> emp : notification succès
+else autorisation invalide
+    sys --> app : accès refusé
+    app --> emp : notification échec
+end
+
+deactivate sys
+deactivate app
+
+@enduml

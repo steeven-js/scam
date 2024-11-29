@@ -1,0 +1,36 @@
+@startuml webcam_access
+' Accès par WebCam
+actor "Employé" as emp
+participant "WebCam" as cam
+participant "Système SCAM" as sys
+participant "Base de données" as db
+participant "Contrôle Porte" as porte
+
+emp -> cam : se présente devant caméra
+activate cam
+cam -> sys : capture visage
+activate sys
+
+sys -> sys : analyse biométrique
+sys -> db : vérifie identité
+activate db
+db --> sys : statut identification
+deactivate db
+
+alt identification réussie
+    sys -> porte : commande ouverture
+    activate porte
+    porte --> sys : confirmation
+    deactivate porte
+    sys -> db : enregistre accès
+    sys --> cam : accès autorisé
+    cam --> emp : signal vert + ouverture
+else échec identification
+    sys --> cam : accès refusé
+    cam --> emp : signal rouge
+end
+
+deactivate sys
+deactivate cam
+
+@enduml

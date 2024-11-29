@@ -1,0 +1,33 @@
+@startuml badge_diagram
+actor "Employé" as emp
+participant "Lecteur Badge" as lb
+participant "Système SCAM" as sys
+participant "Base de données" as db
+participant "Contrôle Porte" as porte
+
+emp -> lb : présente badge
+activate lb
+lb -> sys : envoie ID badge
+activate sys
+
+sys -> db : vérifie autorisation
+activate db
+db --> sys : statut autorisation
+deactivate db
+
+alt badge autorisé
+    sys -> porte : commande ouverture
+    activate porte
+    porte --> sys : confirmation ouverture
+    deactivate porte
+    sys -> db : enregistre accès
+    sys --> lb : accès autorisé
+    lb --> emp : signal vert + ouverture
+else badge non autorisé
+    sys --> lb : accès refusé
+    lb --> emp : signal rouge
+end
+
+deactivate sys
+deactivate lb
+@enduml
