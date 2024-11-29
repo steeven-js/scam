@@ -1,0 +1,36 @@
+@startuml systeme
+'Point de vue système
+left to right direction
+
+actor "Personnel" as emp
+actor "Badge" as badge
+actor "WebCam" as cam
+actor "Lecteur Empreintes" as fp
+actor "Smartphone" as phone
+actor "Base de données" as db
+
+rectangle "Système SCAM" {
+    usecase "Authentifier utilisateur" as UC1
+    usecase "Vérifier biométrie" as UC2
+    usecase "Valider badge" as UC3
+    usecase "Vérifier empreinte" as UC4
+    usecase "Valider accès mobile" as UC5
+    usecase "Journaliser événements" as UC6
+    usecase "Contrôler ouverture" as UC7
+}
+
+emp --> UC1
+UC1 <-- badge
+UC1 <-- cam
+UC1 <-- fp
+UC1 <-- phone
+
+UC2 --> db
+UC3 --> db
+UC4 --> db
+UC5 --> db
+UC6 --> db
+
+UC1 --> UC7
+
+@enduml

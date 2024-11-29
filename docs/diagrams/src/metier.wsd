@@ -1,0 +1,20 @@
+@startuml metier
+'Point de vue métier
+left to right direction
+
+actor "Personnel" as emp
+actor "Administrateur" as admin
+
+rectangle "Système de contrôle d'accès" {
+    usecase "Accéder aux locaux" as UC1
+    usecase "Gérer les droits d'accès" as UC2
+    usecase "Consulter historique" as UC3
+    usecase "Gérer utilisateurs" as UC4
+}
+
+emp --> UC1
+admin --> UC2
+admin --> UC3
+admin --> UC4
+
+@enduml
