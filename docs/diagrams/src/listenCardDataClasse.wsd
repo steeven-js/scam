@@ -1,0 +1,31 @@
+@startuml listenCardDataClasse
+class TerminalController {
+    - socket
+    - isConnected : bool
+    - extractCardId(rawData): string
+    + listenCardData(): void
+    + __destruct(): void
+}
+
+class Bd {
+    + firstOrCreate(condition: array, data: array): Bd
+    + update(data: array): void
+    - badge_id: string
+    - status: string
+    - raw_data: string
+    - last_read_at: DateTime
+    - read_count: int
+}
+
+class BdRead {
+    + create(data: array): BdRead
+    - badge_id: int
+    - raw_data: string
+    - status: string
+    - message: string
+    - read_at: DateTime
+}
+
+TerminalController -> Bd : "Utilise"
+TerminalController -> BdRead : "Enregistre les lectures"
+@enduml

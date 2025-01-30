@@ -1,0 +1,12 @@
+@startuml TrotinnetteConsommation
+actor Utilisateur
+participant "Capteur de batterie" as Batterie
+participant "Application Embarquée" as App
+participant "Écran tactile" as Ecran
+
+Utilisateur -> App : Demande de surveiller la batterie
+App -> Batterie : Récupérer le niveau de charge
+Batterie -> App : Retourne le niveau de batterie
+App -> Ecran : Affiche le pourcentage de batterie
+Utilisateur <-- Ecran : Consulte le niveau de batterie
+@enduml

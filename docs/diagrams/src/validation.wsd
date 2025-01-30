@@ -1,0 +1,23 @@
+@startuml validation
+title Demande d'accès simple
+
+actor Utilisateur
+participant Système
+participant DemandeAccès
+participant Validateur
+
+Utilisateur->Système: Soumet demande d'accès
+activate Système
+Système->DemandeAccès: Crée nouvelle demande
+activate DemandeAccès
+DemandeAccès-->Système: Demande créée
+deactivate DemandeAccès
+Système-->Utilisateur: Confirmation soumission
+deactivate Système
+
+Validateur->DemandeAccès: Valide demande
+activate DemandeAccès
+DemandeAccès-->Validateur: Confirmation validation
+deactivate DemandeAccès
+Validateur-->Utilisateur: Notification décision
+@enduml deactivate DemandeAccès

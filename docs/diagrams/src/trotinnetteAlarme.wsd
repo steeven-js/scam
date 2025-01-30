@@ -1,0 +1,11 @@
+@startuml TrotinetteAlarme
+actor Utilisateur
+participant "Capteur de batterie" as Batterie
+participant "Application Embarquée" as App
+participant "Écran tactile" as Ecran
+
+Batterie -> App : Alerte de batterie faible
+App -> Ecran : Affiche un message d'alerte
+Utilisateur <-- Ecran : Consulte l'alerte
+Utilisateur -> App : Confirme la réception de l'alerte
+@enduml

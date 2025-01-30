@@ -1,0 +1,13 @@
+@startuml trotinnetteDistance
+actor Utilisateur
+participant "Capteur de vitesse" as Capteur
+participant "Application Embarquée" as App
+participant "Écran tactile" as Ecran
+
+Utilisateur -> App : Demande de calculer la distance
+App -> Capteur : Récupérer les données de vitesse
+Capteur -> App : Retourne les données (vitesse et temps)
+App -> App : Calculer la distance (distance = vitesse × temps)
+App -> Ecran : Affiche la distance
+Utilisateur <-- Ecran : Consulte la distance
+@enduml

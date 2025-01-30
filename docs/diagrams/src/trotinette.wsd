@@ -1,0 +1,22 @@
+@startuml trottinette_diagram
+actor Utilisateur
+actor Trottinette
+package "Application Embarquée" {
+    usecase "Saisir les paramètres de parcours" as U1
+    usecase "Afficher la vitesse en temps réel" as U2
+    usecase "Calculer la distance parcourue" as U3
+    usecase "Surveiller la consommation de la batterie" as U4
+    usecase "Gérer les alarmes" as U5
+}
+
+Utilisateur --> U1 : "Interagit avec l'interface"
+Utilisateur --> U2 : "Visualise les données"
+Utilisateur --> U3 : "Consulte la distance"
+Utilisateur --> U5 : "Reçoit les alertes"
+
+Trottinette --> U2 : "Fournit la vitesse"
+Trottinette --> U3 : "Envoie les données de parcours"
+Trottinette --> U4 : "Envoie l'état de la batterie"
+Trottinette --> U5 : "Déclenche les alertes"
+
+@enduml

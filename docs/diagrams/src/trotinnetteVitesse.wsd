@@ -1,0 +1,12 @@
+@startuml trotinnetteVitesse
+actor Utilisateur
+participant "Capteur de vitesse" as Capteur
+participant "Application Embarquée" as App
+participant "Écran tactile" as Ecran
+
+Utilisateur -> App : Demande d'afficher la vitesse
+App -> Capteur : Récupérer la vitesse
+Capteur -> App : Retourne la vitesse
+App -> Ecran : Affiche la vitesse
+Utilisateur <-- Ecran : Visualise la vitesse
+@enduml

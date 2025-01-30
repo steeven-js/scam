@@ -1,0 +1,38 @@
+@startuml sql_diagram
+participant "ServiceLecteurRFID" as R
+participant "ServiceLecteurCarte" as S
+participant "Control_acces" as C
+participant "Base_de_Donnees" as DB
+participant "Systeme_Evenements" as E
+
+C -> S: écouter_lecteur_carte()
+S -> R: connecter(ip, port)
+R --> S: connexion_réussie
+
+loop Écouter les cartes
+    R -> S: envoyer_données_brutes
+    activate S
+    S -> S: extraire_id_carte()
+    
+    alt Données valides
+        S -> DB: enregistrer_scan(carte_id, horodatage)
+        DB --> S: enregistrement_réussi
+        S -> E: déclencher(CarteScannée)
+        E -> DB: enregistrer_journal_événements
+        S -> C: afficher_succès
+    else Données invalides
+        S -> C: afficher_erreur
+        S -> DB: journaliser_erreur
+    end
+    deactivate S
+end
+
+note over S,R: Connexion maintenue jusqu'à interruption
+
+alt Erreur survient
+    R -> S: connexion_perdue
+    S -> DB: journaliser_erreur
+    S -> C: afficher_erreur
+    S -> S: tenter_reconnexion
+end
+@enduml

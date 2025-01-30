@@ -1,0 +1,53 @@
+@startuml trotinettes
+class Utilisateur {
+    - id: int
+    - nom: String
+    - email: String
+    + saisirParametres(parcours: ParametreParcours): void
+    + consulterDonnees(): void
+}
+
+class Trottinette {
+    - id: int
+    - vitesse: float
+    - distanceParcourue: float
+    - niveauBatterie: int
+    + fournirVitesse(): float
+    + fournirDistance(): float
+    + verifierBatterie(): int
+}
+
+class Capteur {
+    - id: int
+    - type: String
+    + collecterDonnees(): String
+}
+
+class Application {
+    - listeParametres: List<ParametreParcours>
+    - listeAlertes: List<Alerte>
+    + afficherDonnees(vitesse: float, distance: float, batterie: int): void
+    + genererAlerte(type: String): Alerte
+    + surveillerBatterie(): void
+}
+
+class ParametreParcours {
+    - id: int
+    - distanceSouhaitee: float
+    - vitesseMax: float
+    + validerParametres(): boolean
+}
+
+class Alerte {
+    - id: int
+    - type: String
+    - message: String
+    + afficherAlerte(): void
+}
+
+Utilisateur --> Application : "Interagit avec"
+Trottinette --> Application : "Fournit données"
+Application --> Capteur : "Utilise pour collecter"
+Application --> Alerte : "Génère"
+Application --> ParametreParcours : "Gère"
+@enduml

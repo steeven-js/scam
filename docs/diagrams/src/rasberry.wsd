@@ -1,0 +1,58 @@
+@startuml rasberry_diagram
+skinparam backgroundColor white
+skinparam sequenceMessageAlign center
+
+actor "Utilisateur" as User
+participant "Control_Acces" as RPI #lightblue
+participant "Base_de_donnees\nSQL" as DB #lightgrey
+participant "CI_Porte" as System #lightgreen
+
+== Initialisation ==
+RPI -> RPI: Démarrage service
+RPI -> DB: Connection BDD
+activate DB
+DB --> RPI: Connection établie
+deactivate DB
+
+== Surveillance continue ==
+loop Toutes les 5 secondes
+    RPI -> RPI: Vérification état
+    activate RPI
+    RPI --> RPI: État système
+    deactivate RPI
+
+== Control d'accès ==
+User -> RPI: Présentation credentials\n(badge/biométrie/smartphone)
+activate RPI
+
+RPI -> DB: Requête vérification
+activate DB
+DB --> RPI: Retour validation
+deactivate DB
+
+alt Accès autorisé
+    RPI -> System: Commande d'ouverture
+    activate System
+    System --> RPI: ACK ouverture
+    deactivate System
+    
+    RPI -> RPI: Activation LED verte
+    RPI -> DB: Log accès réussi
+    activate DB
+    DB --> RPI: ACK log
+    deactivate DB
+    
+    RPI --> User: Accès accordé
+else Accès refusé
+    RPI -> RPI: Activation LED rouge
+    RPI -> DB: Log tentative échec
+    activate DB
+    DB --> RPI: ACK log
+    deactivate DB
+    
+    RPI --> User: Accès refusé
+end
+
+deactivate RPI
+
+@enduml

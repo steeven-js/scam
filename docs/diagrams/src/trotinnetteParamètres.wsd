@@ -1,0 +1,11 @@
+@startuml trotinnetteParamètres
+actor Utilisateur
+participant "Application Embarquée" as App
+participant "Écran tactile" as Ecran
+
+Utilisateur -> Ecran : Saisie des paramètres (distance, vitesse max)
+Ecran -> App : Envoie les paramètres saisis
+App -> App : Valide les paramètres
+App -> Ecran : Confirme les paramètres enregistrés
+Utilisateur <-- Ecran : Consulte la confirmation
+@enduml

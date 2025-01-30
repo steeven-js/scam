@@ -1,0 +1,38 @@
+@startuml badge_class_diagram
+class Employe {
+    - id : int
+    - nom : String
+}
+
+class Badge {
+    - id : int
+    - employeId : int
+}
+
+class LecteurBadge {
+    + lireBadge() : int
+}
+
+class SystemeSCAM {
+    + verifierAutorisation(idBadge : int) : bool
+    + commanderOuverture() : void
+    + enregistrerAcces() : void
+}
+
+class BaseDeDonnees {
+    + verifierAcces(idBadge : int) : bool
+    + enregistrerAcces(idBadge : int) : void
+}
+
+class ControlePorte {
+    + ouvrirPorte() : void
+    + confirmerOuverture() : void
+}
+
+Employe "1" -- "1" Badge
+Badge "1" --> "1" LecteurBadge : "lu par"
+LecteurBadge --> SystemeSCAM : "envoie données"
+SystemeSCAM --> BaseDeDonnees : "vérifie autorisation"
+SystemeSCAM --> ControlePorte : "contrôle porte"
+BaseDeDonnees --> SystemeSCAM : "statut autorisation"
+@enduml

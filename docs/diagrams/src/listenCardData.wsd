@@ -1,0 +1,18 @@
+@startuml listenCardData
+actor Terminal
+participant TerminalController
+participant Bd
+participant BdRead
+
+Terminal -> TerminalController: Connexion (socket_connect)
+TerminalController -> TerminalController: Boucle de lecture (socket_read)
+TerminalController -> TerminalController: extractCardId(hexData)
+TerminalController -> Bd: firstOrCreate(cardId, raw_data)
+Bd --> TerminalController: Badge instance
+
+TerminalController -> BdRead: create(badge_id, raw_data, status, message, read_at)
+TerminalController -> Bd: update(last_read_at, read_count)
+
+TerminalController -> TerminalController: usleep(100ms)
+TerminalController --> Terminal: Répond au terminal
+@enduml
