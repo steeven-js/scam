@@ -1,0 +1,19 @@
+@startuml diagrammeDeDeploiement
+node "Utilisateur" {
+}
+
+node "Lecteur RFID" as RFID {
+}
+
+node "Serveur Laravel" as Laravel {
+  component "Contrôleur d'accès" as Controleur
+  component "API Laravel"
+}
+
+node "Base de Données MySQL" as BD {
+}
+
+Utilisateur --> RFID : Passe le badge
+RFID --> Laravel : Transmet ID
+Controleur --> BD : Vérification accès
+@enduml

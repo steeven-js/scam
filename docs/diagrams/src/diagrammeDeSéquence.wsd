@@ -1,0 +1,16 @@
+@startuml diagrammeDeSéquence
+actor Utilisateur
+participant "Lecteur RFID" as Lecteur
+participant "TerminalController" as Controller
+participant "Serveur Laravel" as Serveur
+participant "Base de Données" as BD
+
+Utilisateur -> Lecteur : Scanne badge RFID
+Lecteur -> Controller : Envoie ID badge
+Controller -> Serveur : Transmet l'ID
+Serveur -> BD : Vérifie l'ID
+BD --> Serveur : Réponse (Valide/Refusé)
+Serveur --> Controller : Autorisation/Refus
+Controller --> Lecteur : Feedback accès
+Serveur -> BD : Enregistre l'événement
+@enduml

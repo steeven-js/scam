@@ -1,0 +1,18 @@
+@startuml diagrammeDarchitecture
+node "Utilisateur" {
+}
+
+node "Lecteur RFID" {
+}
+
+node "Serveur Laravel" {
+  [Controller] --> [Serveur]
+}
+
+node "Base de Données MySQL" {
+}
+
+Utilisateur --> "Lecteur RFID" : Passe le badge
+"Lecteur RFID" --> "Serveur Laravel" : Envoie ID
+"Serveur Laravel" --> "Base de Données MySQL" : Vérifie & stocke accès
+@enduml

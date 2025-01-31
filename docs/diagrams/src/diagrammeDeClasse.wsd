@@ -1,0 +1,36 @@
+@startuml diagrammeDeClasse
+class Utilisateur {
+  - id: int
+  - nom: string
+}
+
+class Badge {
+  - id: int
+  - code_rfid: string
+  - id_utilisateur: int
+}
+
+class Acces {
+  - id: int
+  - id_utilisateur: int
+  - date_heure: datetime
+  - status: string
+}
+
+class BdRead {
+  - id: int
+  - id_badge: int
+  - date_heure: datetime
+  - message: string
+}
+
+class TerminalController {
+  + verifierBadge()
+}
+
+Utilisateur "1" -- "1..*" Badge
+Badge "1" -- "1..*" Acces
+Badge "1" -- "1..*" BdRead
+TerminalController ..> Badge : Vérifie
+TerminalController ..> Acces : Enregistre accès
+@enduml

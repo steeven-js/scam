@@ -1,0 +1,15 @@
+@startuml diagrammeDesCasUtilisation
+actor Utilisateur
+actor Administrateur
+rectangle "Système de Contrôle d'Accès" {
+  (Scanne un badge) as ScanBadge
+  (Validation d'accès) as ValidationAcces
+  (Enregistrement d'accès) as EnregistrementAcces
+  (Gérer les utilisateurs) as GestionUtilisateurs
+
+  Utilisateur --> ScanBadge
+  ScanBadge --> ValidationAcces
+  ValidationAcces --> EnregistrementAcces
+  Administrateur --> GestionUtilisateurs
+}
+@enduml
